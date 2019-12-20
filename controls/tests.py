@@ -3,7 +3,7 @@ from django.urls import reverse
 from rest_framework.test import APITestCase, APIClient
 from rest_framework.views import status
 from .models import Controls
-from .serializers import ControlsSerializer
+from .serializers import ControlSerializer
 
 # Create your tests here.
 class BaseViewTest(APITestCase):
@@ -14,11 +14,11 @@ class BaseViewTest(APITestCase):
 
     @staticmethod
 
-    def create_control(title="", artist=""):
+    def create_control(name="", artist=""):
 
-        if title != "" and artist != "":
+        if name != "" and artist != "":
 
-            Controls.objects.create(title=title, artist=artist)
+            Controls.objects.create(name=name, artist=artist)
 
 
 
@@ -38,7 +38,7 @@ class BaseViewTest(APITestCase):
 
 
 
-class GetAllSongsTest(BaseViewTest):
+class GetAllControlsTest(BaseViewTest):
 
 
 
@@ -54,17 +54,13 @@ class GetAllSongsTest(BaseViewTest):
 
         # hit the API endpoint
 
-        response = self.client.get(
-
-            reverse("controls-all", kwargs={"version": "v1"})
-
-        )
+        response = self.client.get('/controls/')
 
         # fetch the data from db
 
         expected = Controls.objects.all()
 
-        serialized = ControlsSerializer(expected, many=True)
+        serialized = ControlSerializer(expected, many=True)
 
         self.assertEqual(response.data, serialized.data)
 

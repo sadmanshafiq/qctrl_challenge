@@ -2,8 +2,8 @@ from django.db import models
 
 # Create your models here.
 class Controls(models.Model):
-    title = models.CharField(max_length=150)
-    artist = models.CharField(max_length=150)
+    name = models.CharField(max_length=250)
+    artist = models.CharField(max_length=250)
 
 def __str__(self):
-    return "{} - {}".format(self.title, self.artist)
+    return "{} - {}".format(self.name, self.artist)
