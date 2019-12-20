@@ -29,6 +29,37 @@ DEBUG = int(os.environ.get("DEBUG", default=0))
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ") 
 
 
+#Rest Framework Definition
+REST_FRAMEWORK = {  
+    'PAGE_SIZE': 10,    
+    'EXCEPTION_HANDLER': 'rest_framework_json_api.exceptions.exception_handler',    
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework_json_api.pagination.JsonApiPageNumberPaginati on',    
+    'DEFAULT_PARSER_CLASSES': (        
+        'rest_framework_json_api.parsers.JSONParser',        
+        'rest_framework.parsers.FormParser',        
+        'rest_framework.parsers.MultiPartParser'    
+        ),    
+    'DEFAULT_RENDERER_CLASSES': (        
+        'rest_framework_json_api.renderers.JSONRenderer',        
+        'rest_framework.renderers.BrowsableAPIRenderer',    
+        ),    
+        'DEFAULT_METADATA_CLASS': 'rest_framework_json_api.metadata.JSONAPIMetadata',    
+        'DEFAULT_FILTER_BACKENDS': (
+            'rest_framework_json_api.filters.QueryParameterValidationFilt er',        
+            'rest_framework_json_api.filters.OrderingFilter',
+            'rest_framework_json_api.django_filters.DjangoFilterBackend',        
+            'rest_framework.filters.SearchFilter',    
+            ),    
+        'SEARCH_PARAM': 'filter[search]',    
+        'TEST_REQUEST_RENDERER_CLASSES': (        
+            'rest_framework_json_api.renderers.JSONRenderer',    
+            ),    
+        'TEST_REQUEST_DEFAULT_FORMAT': 'vnd.api+json' 
+}
+
+
+
+
 # Application definition
 
 INSTALLED_APPS = [
