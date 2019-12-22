@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 
-from .models import Controls
+from .models import Controls, Control_Types
 from .serializers import ControlSerializer
 
 class BaseViewSet (viewsets.ModelViewSet):

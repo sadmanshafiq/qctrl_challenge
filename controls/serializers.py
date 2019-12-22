@@ -4,4 +4,4 @@ from .models import Controls
 class ControlSerializer(serializers.ModelSerializer): 
     class Meta:
         model = Controls
-        fields = ("name","artist")
+        fields = ("name","ctype")
