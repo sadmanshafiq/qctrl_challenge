@@ -7,7 +7,7 @@ This repository is addressing the backend challenge from Q-CTRL and contains the
 - [Resources](#Resources)
 
 ## Requiements Met
-1. Create a control :white_check_mark:
+1. Create a control []::
 1. List all controls (five per page) :white_check_mark:
 1. Get a specific control :white_check_mark:
 1. Update a specific control - []

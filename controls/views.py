@@ -7,7 +7,7 @@ from django_filters import rest_framework as filters
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework_json_api.parsers import JSONParser
 
-from .models import Controls, Control_Types
+from .models import Controls
 from .serializers import ControlSerializer
 
 # Basic view set to view entire control library
