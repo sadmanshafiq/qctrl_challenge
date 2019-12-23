@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 
 #Rest Framework Definition
 REST_FRAMEWORK = {
-    'PAGE_SIZE': 10,
+    'PAGE_SIZE': 5,
     'EXCEPTION_HANDLER': 'rest_framework_json_api.exceptions.exception_handler',
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework_json_api.pagination.JsonApiPageNumberPagination',
@@ -113,11 +113,12 @@ WSGI_APPLICATION = 'backend_qctrl.wsgi.application'
 
 DATABASES = {
     'default': {
+        # set in docker-compose.yml only runs via Docker!
         'ENGINE': os.environ.get("SQL_ENGINE"),
         'NAME': os.environ.get("SQL_DATABASE"),
         'USER': os.environ.get("SQL_USER"),
         'PASSWORD': os.environ.get("SQL_PASSWORD"),
-        'HOST': os.environ.get("SQL_HOST"), # set in docker-compose.yml
+        'HOST': os.environ.get("SQL_HOST"), 
         'PORT': os.environ.get("SQL_PORT")
     }
 }

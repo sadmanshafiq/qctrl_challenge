@@ -36,8 +36,8 @@ class GetAllControlsTest(TestCase):
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-class GetSinglePuppyTest(TestCase):
-    """ Test module for GET single puppy API """
+class GetSingleControlTest(TestCase):
+    """ Test module for GET single Control API """
 
     def setUp(self):
         Control_Types.objects.create(control_types='Gaussian')
@@ -65,3 +65,40 @@ class GetSinglePuppyTest(TestCase):
         response = client.get(
             reverse('get_delete_update_control', kwargs={'pk': 30}))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+class CreateNewControlTest(TestCase):
+    """ Test module for inserting a new Control """
+
+    def setUp(self):
+        Control_Types.objects.create(control_types='Gaussian')
+        Control_Types.objects.create(control_types='Primitive')
+        Control_Types.objects.create(control_types='CinSK')
+        Control_Types.objects.create(control_types='CinBB')
+        self.valid_payload = {
+            'name': 'Muffin',
+            'ctype': Control_Types.objects.get(control_types='Primitive'),
+            'maximum_rabi_rate': 23.24,
+            'polar_angle': 0.345
+        }
+        self.invalid_payload = {
+            'name': 'ADE',
+            'ctype': Control_Types.objects.get(control_types='Gaussian'),
+            'maximum_rabi_rate': 123.24,
+            'polar_angle': 0.345
+        }
+
+    def test_create_valid_control(self):
+        response = client.post(
+            reverse('get_post_control'),
+            data=json.dumps(self.valid_payload),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_create_invalid_control(self):
+        response = client.post(
+            reverse('get_post_control'),
+            data=json.dumps(self.invalid_payload),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

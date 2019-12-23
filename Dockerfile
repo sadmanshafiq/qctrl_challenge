@@ -17,5 +17,11 @@ RUN pip install --upgrade pip
 COPY ./requirements.txt /backend_qctrl/requirements.txt
 RUN pip install -r requirements.txt
 
+# copy entrypoint //NOT TESTED
+#COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
+
 # copy project
 COPY . /backend_qctrl/
+
+# run entrypoint.sh //NOT TESTED
+#ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
