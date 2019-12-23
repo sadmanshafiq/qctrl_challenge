@@ -4,4 +4,4 @@ from .models import Controls
 class ControlSerializer(serializers.ModelSerializer): 
     class Meta:
         model = Controls
-        fields = ("name","ctype")
+        fields = ("name","ctype","maximum_rabi_rate","polar_angle")
