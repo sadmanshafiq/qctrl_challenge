@@ -1,5 +1,6 @@
 import json
 from rest_framework import status
+from rest_framework.test import APIClient, APIRequestFactory
 from django.test import TestCase, Client
 from django.urls import reverse
 
@@ -7,7 +8,7 @@ from .models import Controls
 from .serializers import ControlSerializer
 
 #Initialize API Client app
-client = Client()
+client = APIClient()
 
 class GetAllControlsTest(TestCase):
     """ Test module for GET all controls API """
@@ -41,13 +42,13 @@ class GetSingleControlTest(TestCase):
         #Control_Types.objects.create(control_types='CinSK')
         #Control_Types.objects.create(control_types='CinBB')
         self.casper = Controls.objects.create(
-            name='Casper', ctype='Gaussian', maximum_rabi_rate=12, polar_angle=0.32)
+            name='Casper', ctype='GAUS', maximum_rabi_rate=12, polar_angle=0.32)
         self.muffin = Controls.objects.create(
-            name='Jas', ctype='Primitive', maximum_rabi_rate=53, polar_angle=0.212)           
+            name='Jas', ctype='PRIM', maximum_rabi_rate=53, polar_angle=0.212)           
         self.rambo = Controls.objects.create(
-            name='Dev Single', ctype='CinSK', maximum_rabi_rate=10, polar_angle=0.8231)
+            name='Dev Single', ctype='CINS', maximum_rabi_rate=10, polar_angle=0.8231)
         self.ricky = Controls.objects.create(
-            name='ricky', ctype='CinBB', maximum_rabi_rate=62, polar_angle=0.4323)
+            name='ricky', ctype='CINB', maximum_rabi_rate=62, polar_angle=0.4323)
 
     def test_get_valid_single_control(self):
         response = client.get(
@@ -86,15 +87,15 @@ class CreateNewControlTest(TestCase):
     def test_create_valid_control(self):
         response = client.post(
             reverse('get_post_control'),
-            data=json.dumps(self.valid_payload),
-            content_type='application/json'
+            data=self.valid_payload,
+            content_type='application/vnd.api+json'
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_create_invalid_control(self):
         response = client.post(
-            reverse('get_post_control'),
-            data=json.dumps(self.invalid_payload),
-            content_type='application/json'
+            reverse('get_post_control'), 
+            data=self.invalid_payload,
+            content_type='application/vnd.api+json'
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

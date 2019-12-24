@@ -19,14 +19,14 @@ class Controls(models.Model):
     Gaussian = '1'
     
     class Type(models.TextChoices):
-        Gaussian = 'GAUS', _('Gaussian')
-        Primitive = 'PRIM', _('Primitive')
-        CORPSE = 'CORP', _('CORPSE')
-        CinBB = 'CINB', _('CinBB')
-        CinSK = 'CINS', _('CinSK')
+        Gaussian = 'Gaussian', _('Gaussian')
+        Primitive = 'Primitive', _('Primitive')
+        CORPSE = 'CORPSE', _('CORPSE')
+        CinBB = 'CinBB', _('CinBB')
+        CinSK = 'CinSK', _('CinSK')
     # […]
     ctype = models.CharField(
-        max_length=4,
+        max_length=10,
         choices=Type.choices,
         default=Type.CinBB,
     )
@@ -48,4 +48,4 @@ class Controls(models.Model):
 
 
 def __str__(self):
-    return "{} - {}".format(self.name, self.ctype, self.maximum_rabi_rate, self.polar_angle)
+    return "{} - {} - {} - {}".format(self.name, self.ctype, self.maximum_rabi_rate, self.polar_angle)
