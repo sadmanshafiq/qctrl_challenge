@@ -23,7 +23,7 @@ urlpatterns = [
         views.export_controls, name='control_export'
     ),
     path('controls/import', 
-        views.import_controls, name='control_download'
+        views.import_controls, name='control_import'
     ),
     path('test', 
         views.testpage, name='testpage'

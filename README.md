@@ -14,7 +14,12 @@ This repository is addressing the backend challenge from Q-CTRL and contains the
 1. Clone Project
 1. Build and Run the Dockerfile and Spin Up Containers
 2. May have to run postgresql setup (unsure)
-2. Run docker-compose build && docker-compose exec web python manage.py migrate to make sure database migrations work.
+2. Run 
+``` 
+docker-compose build 
+```
+ 
+docker-compose exec web python manage.py migrate to make sure database migrations work.
 2. Check psql is running docker-compose exec db psql --username=postgres --dbname=postgres_db
 
 ## Steps

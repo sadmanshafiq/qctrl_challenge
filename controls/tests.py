@@ -10,6 +10,54 @@ from .serializers import ControlSerializer
 #Initialize API Client app
 client = APIClient()
 factory = APIRequestFactory()
+
+class ViewTestCase(TestCase):
+    """Test suite for the api views."""
+
+    def setUp(self):
+        """Define the test client and other test variables."""
+        self.client = APIClient()
+        self.control_data = {
+            'name': 'Go to Ibiza',
+            'ctype': 'Gaussian', 
+            'maximum_rabi_rate':'51.28', 
+            'polar_angle':'0.4571'
+            }
+        self.response = self.client.post(
+            reverse(''),
+            self.control_data,
+            format="json")
+
+    def test_api_can_get_a_control(self):
+        """Test the api can get a given Control."""
+        control = Controls.objects.get()
+        response = self.client.get(
+            reverse('details',
+            kwargs={'pk': control.id}), format="json")
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertContains(response, control)
+
+    def test_api_can_update_control(self):
+        """Test the api can update a given Control."""
+        control = Controls.objects.get()
+        change_control = {'name': 'Something new'}
+        res = self.client.put(
+            reverse('details', kwargs={'pk': control.id}),
+            change_control, format='json'
+        )
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+    def test_api_can_delete_control(self):
+        """Test the api can delete a Control."""
+        control = Controls.objects.get()
+        response = self.client.delete(
+            reverse('details', kwargs={'pk': control.id}),
+            format='json',
+            follow=True)
+
+        self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT)
+
 class GetAllControlsTest(TestCase):
     """ Test module for GET all controls API """
 

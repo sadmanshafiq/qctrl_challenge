@@ -3,8 +3,6 @@ from django.shortcuts import render, get_object_or_404, HttpResponse
 from tablib import Dataset
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import api_view, parser_classes, action
-from rest_framework.parsers import JSONParser, MultiPartParser
-from rest_framework_csv.parsers import CSVParser
 from rest_framework.response import Response
 from rest_framework import status
 from django_filters import rest_framework as filters
