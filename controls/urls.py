@@ -15,5 +15,8 @@ urlpatterns = [
     path('api/v1/controls/',
         views.get_post_control,
         name='get_post_control'
-    )
+    ),
+    path('controls/download-csv', 
+        views.control_download, name='control_download'
+    ),
 ]

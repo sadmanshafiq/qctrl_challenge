@@ -9,7 +9,7 @@ from .serializers import ControlSerializer
 
 #Initialize API Client app
 client = APIClient()
-
+factory = APIRequestFactory()
 class GetAllControlsTest(TestCase):
     """ Test module for GET all controls API """
 
