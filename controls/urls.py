@@ -19,4 +19,13 @@ urlpatterns = [
     path('controls/download-csv', 
         views.control_download, name='control_download'
     ),
+    path('controls/export', 
+        views.export_controls, name='control_export'
+    ),
+    path('controls/import', 
+        views.import_controls, name='control_download'
+    ),
+    path('test', 
+        views.testpage, name='testpage'
+    ),
 ]

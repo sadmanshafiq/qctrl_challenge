@@ -7,7 +7,7 @@ This repository is addressing the backend challenge from Q-CTRL and contains the
 1. Get a specific control :white_check_mark:
 1. Update a specific control - :white_check_mark:
 1. Delete a specific control - :white_check_mark:
-1. Bulk upload controls in CSV format - []
+1. Bulk upload controls in CSV format - :white_check_mark:
 1. Download controls in CSV format - :white_check_mark:
 
 ## How To Run
