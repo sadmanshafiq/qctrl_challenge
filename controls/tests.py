@@ -4,6 +4,7 @@ from rest_framework.test import APIClient, APIRequestFactory
 from django.test import TestCase, Client
 from django.urls import reverse
 
+from .views import BaseViewSet,import_controls,export_controls
 from .models import Controls
 from .serializers import ControlSerializer
 
@@ -11,70 +12,22 @@ from .serializers import ControlSerializer
 client = APIClient()
 factory = APIRequestFactory()
 
-class ViewTestCase(TestCase):
-    """Test suite for the api views."""
-
-    def setUp(self):
-        """Define the test client and other test variables."""
-        self.client = APIClient()
-        self.control_data = {
-            'name': 'Go to Ibiza',
-            'ctype': 'Gaussian', 
-            'maximum_rabi_rate':'51.28', 
-            'polar_angle':'0.4571'
-            }
-        self.response = self.client.post(
-            reverse(''),
-            self.control_data,
-            format="json")
-
-    def test_api_can_get_a_control(self):
-        """Test the api can get a given Control."""
-        control = Controls.objects.get()
-        response = self.client.get(
-            reverse('details',
-            kwargs={'pk': control.id}), format="json")
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertContains(response, control)
-
-    def test_api_can_update_control(self):
-        """Test the api can update a given Control."""
-        control = Controls.objects.get()
-        change_control = {'name': 'Something new'}
-        res = self.client.put(
-            reverse('details', kwargs={'pk': control.id}),
-            change_control, format='json'
-        )
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
-
-    def test_api_can_delete_control(self):
-        """Test the api can delete a Control."""
-        control = Controls.objects.get()
-        response = self.client.delete(
-            reverse('details', kwargs={'pk': control.id}),
-            format='json',
-            follow=True)
-
-        self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT)
 
 class GetAllControlsTest(TestCase):
     """ Test module for GET all controls API """
 
     def setUp(self):
-        
+        self.client = APIClient()
         Controls.objects.create(
-            name='Casper', ctype='GAUS', maximum_rabi_rate=12, polar_angle=0.32)
+            name='Jas', ctype='Primitive', maximum_rabi_rate=53, polar_angle=0.212)
         Controls.objects.create(
-            name='Jas', ctype='PRIM', maximum_rabi_rate=53, polar_angle=0.212)
+            name='Dev Single', ctype='CORPSE', maximum_rabi_rate=10, polar_angle=0.8231)
         Controls.objects.create(
-            name='Dev Single', ctype='CORP', maximum_rabi_rate=10, polar_angle=0.8231)
-        Controls.objects.create(
-            name='Zresk pro', ctype='CINS', maximum_rabi_rate=62, polar_angle=0.4323)
+            name='Zresk pro', ctype='CinSK', maximum_rabi_rate=62, polar_angle=0.4323)
 
     def test_get_all_controls(self):
         # get API response
-        response = client.get(reverse('get_post_control'))
+        response = self.client.get('/controls/', format='json')
         # get data from db
         controls = Controls.objects.all()
         serializer = ControlSerializer(controls, many=True)
@@ -85,18 +38,14 @@ class GetSingleControlTest(TestCase):
     """ Test module for GET single Control API """
 
     def setUp(self):
-        #Control_Types.objects.create(control_types='Gaussian')
-        #Control_Types.objects.create(control_types='Primitive')
-        #Control_Types.objects.create(control_types='CinSK')
-        #Control_Types.objects.create(control_types='CinBB')
         self.casper = Controls.objects.create(
-            name='Casper', ctype='GAUS', maximum_rabi_rate=12, polar_angle=0.32)
+            name='Casper', ctype='Gaussian', maximum_rabi_rate=12, polar_angle=0.32)
         self.muffin = Controls.objects.create(
-            name='Jas', ctype='PRIM', maximum_rabi_rate=53, polar_angle=0.212)           
+            name='Jas', ctype='Primitive', maximum_rabi_rate=53, polar_angle=0.212)           
         self.rambo = Controls.objects.create(
-            name='Dev Single', ctype='CINS', maximum_rabi_rate=10, polar_angle=0.8231)
+            name='Dev Single', ctype='CinSK', maximum_rabi_rate=10, polar_angle=0.8231)
         self.ricky = Controls.objects.create(
-            name='ricky', ctype='CINB', maximum_rabi_rate=62, polar_angle=0.4323)
+            name='ricky', ctype='CinBB', maximum_rabi_rate=62, polar_angle=0.4323)
 
     def test_get_valid_single_control(self):
         response = client.get(
@@ -121,13 +70,13 @@ class CreateNewControlTest(TestCase):
         #Control_Types.objects.create(control_types='CinBB')
         self.valid_payload = {
             'name': 'Muffin',
-            'ctype': 'PRIM',
+            'ctype': 'Primitive',
             'maximum_rabi_rate': 23.24,
             'polar_angle': 0.345
         }
         self.invalid_payload = {
             'name': 'ADE',
-            'ctype': 'GAUS',
+            'ctype': 'Gaussian',
             'maximum_rabi_rate': 123.24,
             'polar_angle': 0.345
         }

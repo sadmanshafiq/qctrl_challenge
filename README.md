@@ -13,7 +13,6 @@ This repository is addressing the backend challenge from Q-CTRL and contains the
 ## How To Run
 1. Clone Project
 1. Build and Run the Dockerfile and Spin Up Containers
-2. May have to run postgresql setup (unsure)
 2. Run 
 ``` 
 docker-compose build 
