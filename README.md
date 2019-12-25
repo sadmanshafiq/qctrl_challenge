@@ -34,14 +34,14 @@ docker-compose exec web python manage.py test
 ```
 
 ## Steps Done
-Project Structure is as follows:
-    backend_qctrl contains api controls which has the important models serializers, views and urls. 
-Specifics of tasks are:
-Created API for controls which accessible with GET, POST, UPDATE, DELETE Requests
-Can View the API using django-rest-framework-json-api with pagination view (max 5 per page)
-Upload and Export functionality implemented using library django-import-export
-Conforms to JSON:API Specification
-Added a .env.dev file and the docker-compose file which contains credentials this should be changed for security by the users
+#### Project Structure is as follows:
+backend_qctrl contains api controls which has the important models serializers, views and urls. 
+#### Specifics of tasks are:
+- [x] Created API for controls which accessible with GET, POST, UPDATE, DELETE Requests
+- [x] Can View the API using django-rest-framework-json-api with pagination view (max 5 per page)
+- [x] Upload and Export functionality implemented using library django-import-export
+- [x] Conforms to JSON:API Specification
+- [x] Added a .env.dev file and the docker-compose file which contains credentials this should be changed for security by the users
 
 
 
