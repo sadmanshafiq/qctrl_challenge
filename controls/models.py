@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-# Create your models here.
+# Created a Control Type Model but decided against using it as extra and unspecified.
 #class Control_Types(models.Model):
 #    control_types = models.CharField(max_length=30, blank=True)
 #

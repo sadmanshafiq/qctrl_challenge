@@ -17,7 +17,6 @@ class GetAllControlsTest(TestCase):
     """ Test module for GET all controls API """
 
     def setUp(self):
-        self.client = APIClient()
         Controls.objects.create(
             name='Jas', ctype='Primitive', maximum_rabi_rate=53, polar_angle=0.212)
         Controls.objects.create(
@@ -27,7 +26,7 @@ class GetAllControlsTest(TestCase):
 
     def test_get_all_controls(self):
         # get API response
-        response = self.client.get('/controls/', format='json')
+        response = client.get('')
         # get data from db
         controls = Controls.objects.all()
         serializer = ControlSerializer(controls, many=True)
@@ -49,7 +48,7 @@ class GetSingleControlTest(TestCase):
 
     def test_get_valid_single_control(self):
         response = client.get(
-            reverse('get_delete_update_control', kwargs={'pk': self.rambo.pk}))
+            reverse('controls-detail', kwargs={'pk': self.rambo.pk}))
         controls = Controls.objects.get(pk=self.rambo.pk)
         serializer = ControlSerializer(controls)
         self.assertEqual(response.data, serializer.data)
@@ -57,7 +56,7 @@ class GetSingleControlTest(TestCase):
 
     def test_get_invalid_single_control(self):
         response = client.get(
-            reverse('get_delete_update_control', kwargs={'pk': 30}))
+            reverse("controls-detail", kwargs={'pk': 30}))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 class CreateNewControlTest(TestCase):
@@ -69,21 +68,28 @@ class CreateNewControlTest(TestCase):
         #Control_Types.objects.create(control_types='CinSK')
         #Control_Types.objects.create(control_types='CinBB')
         self.valid_payload = {
-            'name': 'Muffin',
-            'ctype': 'Primitive',
-            'maximum_rabi_rate': 23.24,
-            'polar_angle': 0.345
-        }
+                "type": "Controls",
+                "attributes": {
+                    "name": "Muffin",
+                    "ctype": "Primitive",
+                    "maximum_rabi_rate": 23.24,
+                    "polar_angle": 0.345
+                }
+            }
         self.invalid_payload = {
-            'name': 'ADE',
-            'ctype': 'Gaussian',
-            'maximum_rabi_rate': 123.24,
-            'polar_angle': 0.345
-        }
+                "type": "Controls",
+                "attributes": {
+                    "name": "Muffin",
+                    "ctype": "Primitive",
+                    "maximum_rabi_rate": 123.24,
+                    "polar_angle": 0.345
+                }
+            }
+        
 
     def test_create_valid_control(self):
         response = client.post(
-            reverse('get_post_control'),
+            reverse("controls-list"),
             data=self.valid_payload,
             content_type='application/vnd.api+json'
         )
@@ -91,7 +97,7 @@ class CreateNewControlTest(TestCase):
 
     def test_create_invalid_control(self):
         response = client.post(
-            reverse('get_post_control'), 
+            reverse("controls-list"), 
             data=self.invalid_payload,
             content_type='application/vnd.api+json'
         )

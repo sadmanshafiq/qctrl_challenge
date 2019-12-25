@@ -12,17 +12,26 @@ This repository is addressing the backend challenge from Q-CTRL and contains the
 
 ## How To Run
 1. Clone Project
-1. Build and Run the Dockerfile and Spin Up Containers
-2. Run 
+2. Build+Run the docker container for this project and db
 ``` 
-docker-compose build 
+docker-compose up -d --build 
 ```
- 
-docker-compose exec web python manage.py migrate to make sure database migrations work.
-2. Check psql is running docker-compose exec db psql --username=postgres --dbname=postgres_db
+3. Setup Database Schema
+ ```
+docker-compose exec web python manage.py migrate 
+```
+4. Check psql is running 
+```
+docker-compose exec db psql --username=postgres --dbname=postgres_db
+```
+5. Check App is running by visiting
+```
+[http://localhost:8000/](http://localhost:8000/)
+```
 
-## Steps
-Created API for controls
+## Steps Done
+Created API for controls accessible with GET Requests
+
 
 ## Resources Used
 https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/#docker : Consulted to Create Django and Postgres Backend on Docker
