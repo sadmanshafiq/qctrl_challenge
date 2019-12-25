@@ -35,7 +35,7 @@ docker-compose exec web python manage.py test
 
 ## Steps Done
 #### Project Structure is as follows:
-backend_qctrl contains api controls which has the important models serializers, views and urls. 
+backend_qctrl contains project config while controls contains the api models serializers, views and urls. 
 #### Specifics of tasks are:
 - [x] Created API for controls which accessible with GET, POST, UPDATE, DELETE Requests
 - [x] Can View the API using django-rest-framework-json-api with pagination view (max 5 per page)
