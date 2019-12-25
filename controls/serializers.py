@@ -1,3 +1,6 @@
+# serializers.py contains the serializers for controls and controltypes
+# controltype was depreciated due to model matching errors.
+
 from rest_framework_json_api import serializers
 from .models import Controls
 #class ControlTypeSerializer(serializers.ModelSerializer):

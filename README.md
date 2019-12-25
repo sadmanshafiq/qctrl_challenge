@@ -28,9 +28,21 @@ docker-compose exec db psql --username=postgres --dbname=postgres_db
 ```
 [http://localhost:8000/](http://localhost:8000/)
 ```
+6. Run Unit Tests using
+```
+docker-compose exec web python manage.py test
+```
 
 ## Steps Done
-Created API for controls accessible with GET Requests
+Project Structure is as follows:
+    backend_qctrl contains api controls which has the important models serializers, views and urls. 
+Specifics of tasks are:
+Created API for controls which accessible with GET, POST, UPDATE, DELETE Requests
+Can View the API using django-rest-framework-json-api with pagination view (max 5 per page)
+Upload and Export functionality implemented using library django-import-export
+Conforms to JSON:API Specification
+Added a .env.dev file and the docker-compose file which contains credentials this should be changed for security by the users
+
 
 
 ## Resources Used

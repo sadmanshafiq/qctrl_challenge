@@ -1,13 +1,16 @@
-import csv, io
-from django.shortcuts import render #, get_object_or_404, HttpResponse
+# views.py contains the logic behind search functionality, import and export functions and other test functions
+# which were explored to gain a better grasp of api functionality
+
+from django.shortcuts import render, get_object_or_404, HttpResponse
 from tablib import Dataset
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import status
 from django_filters import rest_framework as filters
 from rest_framework.filters import SearchFilter, OrderingFilter
-#removed as not used in final instance
+#commented as not used for final solution
 #from rest_framework.decorators import api_view, parser_classes
+#import csv, io
 
 from .resources import ControlResource
 from .models import Controls
@@ -56,10 +59,6 @@ def import_controls(request):
             control_resource.import_data(dataset, dry_run=False)
 
     return render(request, 'import.html')
-
-#def testpage(request):
-#    my_dict = {"insert_me": "I am from views.py"}
-#    return render(request,'test.html',context=my_dict)
 
 #def control_download(request):
 #    control = Controls.objects.all()

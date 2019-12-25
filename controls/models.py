@@ -1,3 +1,6 @@
+# models.py contains the fields that are being populated and used main focus on ctype
+# as ctype needed to be valid, therefore used Choices to be sure of valid types
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -18,21 +21,20 @@ class Controls(models.Model):
     #
     #ctype = models.ForeignKey(Control_Types, on_delete= models.PROTECT, blank=True, null=True)
     
-    #-----Valid Control Types Exist within this text choice-----
     class Type(models.TextChoices):
         Gaussian = 'Gaussian', _('Gaussian')
         Primitive = 'Primitive', _('Primitive')
         CORPSE = 'CORPSE', _('CORPSE')
         CinBB = 'CinBB', _('CinBB')
         CinSK = 'CinSK', _('CinSK')
-    # 
+    # can be extended when required
     ctype = models.CharField(
         max_length=10,
         choices=Type.choices,
         default=Type.CinBB,
     )
     
-    #with rabi rate validate to make sure it is between 0 and 1000
+    #with rabi rate validate to make sure it is between 0 and 100
     maximum_rabi_rate = models.DecimalField(
         default=1.0,
         max_digits=9, 
