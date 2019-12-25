@@ -17,7 +17,7 @@ class Controls(models.Model):
         CORPSE = 'CORPSE', _('CORPSE')
         CinBB = 'CinBB', _('CinBB')
         CinSK = 'CinSK', _('CinSK')
-    # can be extended when required
+    # can be extended when required, is valid based on type
     ctype = models.CharField(
         max_length=10,
         choices=Type.choices,

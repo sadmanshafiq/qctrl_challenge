@@ -3,7 +3,7 @@
 from import_export import resources
 from .models import Controls
 
-# Register your Resources here.
+# Register your Resources here. Excludes id in order to match existing csv format
 class ControlResource(resources.ModelResource):
     class Meta:
         model = Controls
