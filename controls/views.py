@@ -8,9 +8,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django_filters import rest_framework as filters
 from rest_framework.filters import SearchFilter, OrderingFilter
-#commented as not used for final solution
-#from rest_framework.decorators import api_view, parser_classes
-#import csv, io
+
 
 from .resources import ControlResource
 from .models import Controls
@@ -45,8 +43,9 @@ def import_controls(request):
         control_resource = ControlResource()
         dataset = Dataset()
         new_controls = request.FILES['importData']
-        #Allowed to export d
+        #Allowed to import data as CSV or JSON 
         if file_format == 'CSV':
+            #required to load the data on
             imported_data = dataset.load(new_controls.read().decode('utf-8'),format='csv')
             result = control_resource.import_data(dataset, dry_run=True)                                                                 
         elif file_format == 'JSON':
@@ -59,59 +58,3 @@ def import_controls(request):
             control_resource.import_data(dataset, dry_run=False)
 
     return render(request, 'import.html')
-
-#def control_download(request):
-#    control = Controls.objects.all()
-
-#    response = HttpResponse(content_type='text/csv')
-#    response['Content-Disposition'] = 'attachment; filename="controls.csv"'
-
-#    writer = csv.writer(response, delimiter=',')
-#    writer.writerow(['name', 'type', 'maximum_rabi_rate', 'polar_angle'])
-
-#    for obj in control:
-#        writer.writerow([obj.name, obj.ctype, obj.maximum_rabi_rate, obj.polar_angle])
-#    return response
-
-#@api_view(['GET', 'DELETE', 'PUT'])
-#def get_delete_update_control(request, pk):
-#    control = get_object_or_404(Controls, pk=pk)
-    # get details of a single control
-#    if request.method == 'GET':
-#        serializer = ControlSerializer(control) 
-#        return Response(serializer.data)
-    # delete a single control
-#    if request.method == 'DELETE':
-#        control.delete()
-#        return Response(status=status.HTTP_204_NO_CONTENT)
-    # update details of a single control
-#    if request.method == 'PUT':
-#        serializer = ControlSerializer(control, data=request.data)
-#        if serializer.is_valid():
-#            serializer.save()
-#            return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
-#        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-#@api_view(['GET', 'POST'])
-#def get_post_control(request):
-    # get all controls
-#    if request.method == 'GET':
-#        controls = Controls.objects.all()
-#        serializer = ControlSerializer(controls, many=True)
-#        return Response(serializer.data)
-    # insert a new record for a control
-#    if request.method == 'POST':
-#        data = {
-#            'name': request.data.get('name'),
-#            'ctype': request.data.get('ctype'),
-#            'maximum_rabi_rate': request.data.get('maximum_rabi_rate'),
-#            'polar_angle': request.data.get('polar_angle')
-#        }
-
-#        serializer = ControlSerializer(data=data ) #many=isinstance(request.data, list
-#        if serializer.is_valid():
-#            serializer.save()
-#            return Response(serializer.data, status=status.HTTP_201_CREATED)
-#        else:
-#            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

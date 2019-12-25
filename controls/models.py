@@ -5,22 +5,12 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-# Created a Control Type Model but decided against using it as extra and unspecified.
-#class Control_Types(models.Model):
-#    control_types = models.CharField(max_length=30, blank=True)
-#
-#    def __unicode__(self):
-#        return self.control_types
-
 class Controls(models.Model):
     #Contains all the API parts, with choice explanation given
 
     #simple char field can be made unique if there was need to seperate based on name
     name = models.CharField(max_length=150)
-    #with a control type you want to make sure you can swap out control types rather than destroy therefore models.PROTECT
-    #
-    #ctype = models.ForeignKey(Control_Types, on_delete= models.PROTECT, blank=True, null=True)
-    
+
     class Type(models.TextChoices):
         Gaussian = 'Gaussian', _('Gaussian')
         Primitive = 'Primitive', _('Primitive')
@@ -41,6 +31,7 @@ class Controls(models.Model):
         decimal_places=6,
         validators=[MaxValueValidator(100), MinValueValidator(0)]
         )
+        
     #Polar Angle with value validation but no unit check (checking if unit is in pi) 
     polar_angle = models.DecimalField(
         default=0.0,

@@ -16,19 +16,4 @@ urlpatterns = [
     path('controls/import', 
         views.import_controls, name='control_import'
     ),
-   #These were tests and other implemented methods for handling api urls
-   # path('api/v1/controls/<int:pk>/',
-   #     views.get_delete_update_control,
-   #     name='get_delete_update_control'
-   # ),
-   # path('api/v1/controls/',
-   #     views.get_post_control,
-   #     name='get_post_control'
-   # ),
-   # path('controls/download-csv', 
-   #     views.control_download, name='control_download'
-   # ),
-   # path('test', 
-   #     views.testpage, name='testpage'
-   # ),
 ]
