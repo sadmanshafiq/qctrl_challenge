@@ -7,5 +7,5 @@ from .models import Controls
 class ControlSerializer(serializers.ModelSerializer): 
     class Meta:
         model = Controls
-        fields = ("name","ctype","maximum_rabi_rate","polar_angle")
+        fields = ("name","type","maximum_rabi_rate","polar_angle")
     

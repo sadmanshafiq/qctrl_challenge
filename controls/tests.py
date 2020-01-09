@@ -21,11 +21,11 @@ class GetAllControlsTest(TestCase):
 
     def setUp(self):
         Controls.objects.create(
-            name='Jas', ctype='Primitive', maximum_rabi_rate=53, polar_angle=0.212)
+            name='Jas', type='Primitive', maximum_rabi_rate=53, polar_angle=0.212)
         Controls.objects.create(
-            name='Dev Single', ctype='CORPSE', maximum_rabi_rate=10, polar_angle=0.8231)
+            name='Dev Single', type='CORPSE', maximum_rabi_rate=10, polar_angle=0.8231)
         Controls.objects.create(
-            name='Zresk pro', ctype='CinSK', maximum_rabi_rate=62, polar_angle=0.4323)
+            name='Zresk pro', type='CinSK', maximum_rabi_rate=62, polar_angle=0.4323)
 
     def test_get_all_controls(self):
         # get API response
@@ -37,13 +37,13 @@ class GetSingleControlTest(TestCase):
 
     def setUp(self):
         self.casper = Controls.objects.create(
-            name='Casper', ctype='Gaussian', maximum_rabi_rate=12, polar_angle=0.32)
+            name='Casper', type='Gaussian', maximum_rabi_rate=12, polar_angle=0.32)
         self.muffin = Controls.objects.create(
-            name='Jas', ctype='Primitive', maximum_rabi_rate=53, polar_angle=0.212)           
+            name='Jas', type='Primitive', maximum_rabi_rate=53, polar_angle=0.212)           
         self.rambo = Controls.objects.create(
-            name='Dev Single', ctype='CinSK', maximum_rabi_rate=10, polar_angle=0.8231)
+            name='Dev Single', type='CinSK', maximum_rabi_rate=10, polar_angle=0.8231)
         self.ricky = Controls.objects.create(
-            name='ricky', ctype='CinBB', maximum_rabi_rate=62, polar_angle=0.4323)
+            name='ricky', type='CinBB', maximum_rabi_rate=62, polar_angle=0.4323)
 
     def test_get_valid_single_control(self):
         response = client.get(
@@ -66,7 +66,7 @@ class CreateNewControlTest(TestCase):
                 "type": "Controls",
                 "attributes": {
                     "name": "Muffin",
-                    "ctype": "Primitive",
+                    "type": "Primitive",
                     "maximum_rabi_rate": 123.24,
                     "polar_angle": 0.345
                 }

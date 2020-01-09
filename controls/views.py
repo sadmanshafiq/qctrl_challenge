@@ -16,7 +16,7 @@ from .serializers import ControlSerializer
 
 # View set to view entire control library with CRUD Capabilities
 class BaseViewSet (ModelViewSet):
-    __basic_fields = ('name', 'ctype', 'polar_angle')
+    __basic_fields = ('name', 'type', 'polar_angle')
     queryset = Controls.objects.all()
     serializer_class = ControlSerializer
     filer_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
@@ -25,7 +25,7 @@ class BaseViewSet (ModelViewSet):
        
 
 #Export View to export data in CSV, allowance for other data type for future use
-#input:GET renders html, on POST outputs file controls.csv
+#input: request object, on GET renders html, on POST outputs file controls.csv
 def export_controls(request):
     if request.method == 'POST':
         file_format = request.POST['file-format']
@@ -38,7 +38,7 @@ def export_controls(request):
     return render(request, 'export.html')
 
 #Import View to import data in CSV and JSON, allowance for other data type for future use
-#input: GET renders htmls, on POST gets request.FILES and imports data based on file-format chosen
+#input: request object, on GET renders htmls, on POST gets request.FILES and imports data based on file-format chosen
 def import_controls(request):
     if request.method == 'POST':
         file_format = request.POST['file-format']

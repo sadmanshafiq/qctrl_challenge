@@ -1,5 +1,5 @@
-# models.py contains the fields that are being populated and used main focus on ctype
-# as ctype needed to be valid, therefore used Choices to be sure of valid types
+# models.py contains the fields that are being populated and placed focus on type
+# as type needed to be valid, therefore used Choices to be sure of valid types
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -18,7 +18,7 @@ class Controls(models.Model):
         CinBB = 'CinBB', _('CinBB')
         CinSK = 'CinSK', _('CinSK')
     # can be extended when required, is valid based on type
-    ctype = models.CharField(
+    type = models.CharField(
         max_length=10,
         choices=Type.choices,
         default=Type.CinBB,
@@ -42,4 +42,4 @@ class Controls(models.Model):
 
 
 def __str__(self):
-    return "{} - {} - {} - {}".format(self.name, self.ctype, self.maximum_rabi_rate, self.polar_angle)
+    return "{} - {} - {} - {}".format(self.name, self.type, self.maximum_rabi_rate, self.polar_angle)
